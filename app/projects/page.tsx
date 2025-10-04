@@ -3,7 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { SmoothIn } from "@/lib/animation";
-import Image from "next/image";
 import ProjectCard from "@/component/card/ProjectCard";
 
 const ProjectList = [

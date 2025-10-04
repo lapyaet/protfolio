@@ -10,24 +10,24 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Scale, SmoothIn } from "@/lib/animation";
 
-const worlds = [
-  {
-    text: "Front-End Web Developer",
-  },
-  {
-    text: "</br>",
-  },
-  {
-    text: "Hello I'm",
-  },
-  {
-    text: "</br>",
-  },
-  {
-    text: "La Pyae Htun",
-    color: "#8B5CF6",
-  },
-];
+// const worlds = [
+//   {
+//     text: "Front-End Web Developer",
+//   },
+//   {
+//     text: "</br>",
+//   },
+//   {
+//     text: "Hello I'm",
+//   },
+//   {
+//     text: "</br>",
+//   },
+//   {
+//     text: "La Pyae Htun",
+//     color: "#8B5CF6",
+//   },
+// ];
 
 const Links = [
   {
