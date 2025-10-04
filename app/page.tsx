@@ -1,103 +1,128 @@
+"use client";
+import { TextGenerateEffect } from "@/component/ui/text-generate-effect";
+import {
+  IconBrandFacebookFilled,
+  IconBrandGithubFilled,
+  IconBrandLinkedinFilled,
+} from "@tabler/icons-react";
 import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { Scale, SmoothIn } from "@/lib/animation";
+
+const worlds = [
+  {
+    text: "Front-End Web Developer",
+  },
+  {
+    text: "</br>",
+  },
+  {
+    text: "Hello I'm",
+  },
+  {
+    text: "</br>",
+  },
+  {
+    text: "La Pyae Htun",
+    color: "#8B5CF6",
+  },
+];
+
+const Links = [
+  {
+    name: "facebook",
+    href: "https://www.facebook.com/la.pyae.523759",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/la-pyae-a24359226/",
+  },
+  {
+    name: "Github",
+    href: "https://github.com/lapyaet",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className=" w-full h-screen">
+      <div className="w-full h-screen flex items-center lg:flex-row flex-col-reverse max-w-7xl mx-auto px-4 lg:px-8 py-[110px] lg:gap-0 gap-8">
+        <div className="flex-1 flex flex-col gap-4">
+          <div>
+            <TextGenerateEffect words="Hello" delay={2} />
+            <TextGenerateEffect words="I’m La Pyae Htun" delay={2.5} />
+            <TextGenerateEffect
+              words="Front-End Web Developer"
+              color="text-transparent"
+              delay={3.5}
+              className=" bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500"
+            />
+          </div>
+          <motion.p
+            variants={SmoothIn("up", 2.5)}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            className="text-black text-lg font-medium"
+          >
+            I build responsive, modern web applications with React, SolidJS, and
+            Tailwind CSS.
+          </motion.p>
+          <div className="flex gap-4 items-center">
+            <Link href="/contact">
+              <motion.button
+                variants={Scale(3)}
+                initial="hidden"
+                animate="show"
+                exit="hidden"
+                className=" cursor-pointer px-4 py-2 rounded-xl bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/80 hover:text-white font-bold"
+              >
+                Contact Me
+              </motion.button>
+            </Link>
+            {Links.map((link, i) => (
+              <Link key={link.name} href={link.href} target="_blank">
+                <motion.button
+                  variants={Scale(i * 0.5 + 3.5)}
+                  initial="hidden"
+                  animate="show"
+                  exit="hidden"
+                  key={link.name}
+                  className="cursor-pointer p-2 rounded-full border border-[#8B5CF6]  hover:bg-[#8B5CF6] transition-all duration-300 text-[#8B5CF6] hover:text-white"
+                >
+                  {link.name === "facebook" && (
+                    <IconBrandFacebookFilled className="w-5 h-5 " />
+                  )}
+                  {link.name === "LinkedIn" && (
+                    <IconBrandLinkedinFilled className=" w-5 h-5 " />
+                  )}
+                  {link.name === "Github" && (
+                    <IconBrandGithubFilled className=" w-5 h-5" />
+                  )}
+                </motion.button>
+              </Link>
+            ))}
+          </div>
+        </div>
+        <div className="lg:flex-1 flex justify-end items-center">
+          <motion.div
+            variants={Scale(2)}
+            initial="hidden"
+            animate="show"
+            exit="hidden"
+            className="lg:w-[500px] lg:h-[500px] w-[200px] h-[200px] relative border-2 rounded-full overflow-hidden shadow-[0_0_25px_rgba(167,139,250,0.8)] border-violet-300 "
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={"/profile.png"}
+              alt="profile"
+              width={200}
+              height={200}
+              className="lg:w-[500px] lg:h-[500px] w-[200px] h-[200px] object-cover object-center"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </motion.div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
 }
