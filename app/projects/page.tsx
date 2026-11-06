@@ -1,103 +1,145 @@
 "use client";
 
-import React from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import Link from "next/link";
+import { motion } from "motion/react";
+import { HeroParallax, ScrollPage } from "@/component/ui/scroll-page";
 import { SmoothIn } from "@/lib/animation";
 import ProjectCard from "@/component/card/ProjectCard";
+import { ProjectList } from "@/lib/projects";
 
-const ProjectList = [
-  {
-    name: "CGC-Learn",
-    src: "/cgc.png",
-    dec: "CGC-Learn is a mobile-first platform that empowers young people with tools for mental resilience, employability, and lifelong learning. Target users include high school and university students, job seekers, career changers, and participants in youth development programs. The app integrates wellbeing practices, interactive career guidance, and professional skill-building resources into a single accessible platform.",
-    link: "https://cgc-learn.com",
-    use: [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "TypeScript",
-      "React Native",
-      "Next Auth",
-      "Framer Motion",
-      "Vercel",
-      "GraphQL",
-    ],
-  },
-  {
-    name: "MM-Fonts",
-    src: "/mmFont.png",
-    dec: "This platform serves as a dedicated online marketplace where designers can sell their Myanmar fonts. Users can explore and try out different fonts, with options to download free fonts or purchase premium fonts—all in one place for convenience. The platform provides an easy way to upload and sell their creations while also gaining exposure and building recognition. As an e-commerce platform, it brings together a wide variety of fonts in one accessible space, making it simple for users to discover, test, and obtain the fonts they need in today’s fast-growing digital era.",
-    link: "https://mmfont.vercel.app/en/",
-    use: ["SolidJS", "Tailwind CSS", "TypeScript", "Framer Motion", "Vercel"],
-  },
-  {
-    name: "Epic Uni",
-    src: "/epicUni.png",
-    dec: "EPIC Uni's practice platform is your key to enhancing PTE skills, offering tailored exercises and designed to elevate your PTE proficiency through targeted practice sessions.",
-    link: "https://epicuni.net/",
-    use: [
-      "Next.js",
-      "React",
-      "Tailwind CSS",
-      "TypeScript",
-      "Socket.io",
-      "GraphQL",
-    ],
-  },
-  {
-    name: "DigitHouse",
-    src: "/digitHouse.png",
-    dec: "Digit House is a company that offers a wide range of digital products and services, including e-commerce, digital marketing, and digital content creation. The platform provides a user-friendly interface for users to browse, purchase, and manage their digital products and services. Digit House also offers a range of tools and resources to help users optimize their digital presence and achieve their business goals.",
-    link: "https://digithouse.co",
-    use: ["SolidJS", "Tailwind CSS", "TypeScript", "GSAP", "Vercel"],
-  },
-  {
-    name: "DH Ticket",
-    src: "/dhTicket.png",
-    dec: "DH Ticket is a ticketing platform that offers a range of services to help users manage their travel arrangements. The platform provides a user-friendly interface for users to browse, purchase, and manage their travel tickets. DH Ticket also offers a range of tools and resources to help users optimize their travel experience and achieve their business goals.",
-    link: "https://digithouse.co",
-    use: ["SolidJS", "Tailwind CSS", "TypeScript", "GSAP", "Vercel"],
-  },
-];
+const filters = ["All", "Next.js", "SolidJS", "React Native", "GraphQL"];
+
+// Page transition covers the screen until about this long after mount.
+const INTRO_DELAY = 1.3;
 
 const ProjectsPage = () => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [filter, setFilter] = useState("All");
+  // Only the first row is visible on arrival, so only it waits for the page
+  // transition. Rows further down must appear the moment they scroll in.
+  const [filtered, setFiltered] = useState(false);
+
+  const visible = ProjectList.filter(
+    (p) => filter === "All" || p.use.includes(filter)
+  );
+
   return (
-    <div className="w-full h-screen max-w-7xl mx-auto px-4 lg:px-8 py-[110px] lg:gap-10 gap-8 overflow-scroll">
-      <motion.h3
-        variants={SmoothIn("up", 1.5)}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className="text-center bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 lg:text-4xl text-transparent font-bold text-2xl"
-      >
-        My Projects
-      </motion.h3>
-      <motion.p
-        variants={SmoothIn("up", 1.8)}
-        initial="hidden"
-        animate="show"
-        exit="hidden"
-        className="text-center text-lg font-medium mt-4"
-      >
-        A collection of my favorite work, built with passion and creativity.
-        <br />
-        Each project reflects my journey as a front-end developer, combining
-        design and technology to deliver beautiful and functional experiences.
-      </motion.p>
-      <div className="mt-8 grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 md:gap-8 gap-4">
-        {ProjectList.map((project, i) => (
-          <motion.div
-            key={project.name}
+    <ScrollPage scrollRef={scrollRef}>
+
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-[120px] pb-16">
+        {/* ---------- Heading ---------- */}
+        <HeroParallax>
+        <section className="text-center max-w-3xl mx-auto">
+          <motion.p
+            variants={SmoothIn("up", 1.5)}
             initial="hidden"
             animate="show"
-            exit="hidden"
-            variants={SmoothIn("up", i * 0.5 + 2.5)}
+            className="text-sm font-bold tracking-[0.3em] uppercase text-[#8B5CF6]"
           >
-            <ProjectCard project={project} />
+            Selected Work
+          </motion.p>
+          <motion.h1
+            variants={SmoothIn("up", 1.7)}
+            initial="hidden"
+            animate="show"
+            className="mt-3 bg-clip-text bg-gradient-to-br from-indigo-500 via-purple-500 to-cyan-400 lg:text-6xl text-4xl text-transparent font-extrabold"
+          >
+            My Projects
+          </motion.h1>
+          <motion.p
+            variants={SmoothIn("up", 1.9)}
+            initial="hidden"
+            animate="show"
+            className="mt-4 text-lg font-medium text-slate-600 dark:text-white/70"
+          >
+            A selection of products I’ve helped build, each one blending
+            thoughtful design with solid engineering.
+          </motion.p>
+
+          {/* Filters */}
+          <motion.div
+            variants={SmoothIn("up", 2.1)}
+            initial="hidden"
+            animate="show"
+            role="group"
+            aria-label="Filter projects by technology"
+            className="mt-7 flex flex-wrap justify-center gap-2"
+          >
+            {filters.map((f) => {
+              const active = f === filter;
+              const count =
+                f === "All"
+                  ? ProjectList.length
+                  : ProjectList.filter((p) => p.use.includes(f)).length;
+              return (
+                <button
+                  key={f}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => {
+                    setFilter(f);
+                    setFiltered(true);
+                  }}
+                  className={`relative cursor-pointer px-4 py-2 rounded-full text-sm font-bold border transition-colors duration-300 ${
+                    active
+                      ? "text-white border-transparent"
+                      : "text-slate-700 dark:text-white/80 border-violet-300/70 dark:border-white/20 bg-white/90 dark:bg-[#15142c]/90 hover:border-[#8B5CF6]"
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="project-filter"
+                      className="absolute inset-0 rounded-full bg-gradient-to-r from-[#8B5CF6] to-indigo-500 shadow-lg shadow-violet-500/40"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative">
+                    {f} <span className="opacity-70">{count}</span>
+                  </span>
+                </button>
+              );
+            })}
           </motion.div>
-        ))}
+        </section>
+        </HeroParallax>
+
+        {/* ---------- Showcase ---------- */}
+        <div key={filter} className="mt-20 flex flex-col gap-24 lg:gap-32">
+          {visible.map((project, i) => (
+            <ProjectCard
+              key={project.name}
+              project={project}
+              index={i}
+              root={scrollRef}
+              introDelay={i === 0 && !filtered ? INTRO_DELAY : 0}
+            />
+          ))}
+        </div>
+
+        {/* ---------- Call to action ---------- */}
+        <motion.section
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ root: scrollRef, once: true, amount: 0.3 }}
+          transition={{ duration: 0.8 }}
+          className="mt-28 rounded-3xl border border-violet-200/70 dark:border-white/15 bg-white/90 dark:bg-[#15142c]/90 px-6 py-12 text-center"
+        >
+          <h2 className="text-2xl lg:text-3xl font-extrabold">
+            Have a project in mind?
+          </h2>
+          <p className="mt-3 text-lg font-medium text-slate-600 dark:text-white/70">
+            Let’s turn your idea into a polished, working product.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-6 inline-flex px-6 py-3 rounded-xl bg-gradient-to-r from-[#8B5CF6] to-indigo-500 text-white font-bold shadow-lg shadow-violet-500/40 hover:scale-105 transition-transform"
+          >
+            Get in Touch
+          </Link>
+        </motion.section>
       </div>
-    </div>
+    </ScrollPage>
   );
 };
 

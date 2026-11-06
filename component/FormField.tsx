@@ -27,23 +27,24 @@ export default function FormField<T>({
 
   return (
     <div>
-      <label className="text-sm font-medium mb-1 flex items-center gap-2">
+      <label className="text-sm font-semibold mb-1.5 flex items-center gap-1">
         <span>{label}</span>
         {isrequired && <span className="text-red-500">*</span>}
       </label>
       {textarea ? (
         <textarea
-          rows={4}
+          data-lenis-prevent
+          rows={5}
           {...register(name as any)}
           placeholder={placeholder}
-          className="w-full p-2 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-[#8B5CF6] transition-all duration-300 "
+          className="w-full px-4 py-3 rounded-xl border border-violet-200 dark:border-white/15 bg-white/80 dark:bg-white/5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-white/30 focus:outline-none focus:border-[#8B5CF6] focus:ring-4 focus:ring-violet-500/20 transition-all duration-300"
         />
       ) : (
         <input
           type={type}
           {...register(name as any)}
           placeholder={placeholder}
-          className="w-full p-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#8B5CF6] transition-all duration-300 "
+          className="w-full px-4 py-3 rounded-xl border border-violet-200 dark:border-white/15 bg-white/80 dark:bg-white/5 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-white/30 focus:outline-none focus:border-[#8B5CF6] focus:ring-4 focus:ring-violet-500/20 transition-all duration-300"
         />
         // <Input
         //   type={type}

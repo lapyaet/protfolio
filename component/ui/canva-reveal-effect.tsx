@@ -37,6 +37,10 @@ export const CanvasRevealEffect = ({
               float intro_offset = distance(u_resolution / 2.0 / u_total_size, st2) * 0.01 + (random(st2) * 0.15);
               opacity *= step(intro_offset, u_time * animation_speed_factor);
               opacity *= clamp((1.0 - step(intro_offset + 0.1, u_time * animation_speed_factor)) * 1.25, 1.0, 1.25);
+              // Ripple: a soft wave radiating from the centre after the intro
+              float ripple_dist = distance(u_resolution / 2.0 / u_total_size, st2) * 0.03;
+              float ripple = 0.65 + 0.35 * sin(ripple_dist * 40.0 - u_time * 3.0);
+              opacity *= mix(1.0, ripple, step(1.0, u_time * animation_speed_factor));
             `}
           center={["x", "y"]}
         />

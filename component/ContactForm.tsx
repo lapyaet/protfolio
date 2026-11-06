@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "./FormField";
 import { sendContactForm } from "@/lib/api";
 import { useState } from "react";
+import { IconSend } from "@tabler/icons-react";
 
 // ✅ Zod schema
 const contactSchema = z.object({
@@ -138,13 +139,16 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={loading}
-        className={` text-white py-2 px-4 rounded-lg font-medium ${
+        className={`group w-full inline-flex items-center justify-center gap-2 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 ${
           loading
-            ? "cursor-not-allowed bg-gray-300"
-            : "cursor-pointer bg-[#8B5CF6] hover:bg-[#8B5CF6]/80"
+            ? "cursor-not-allowed bg-slate-300 dark:bg-white/20"
+            : "cursor-pointer bg-gradient-to-r from-[#8B5CF6] to-indigo-500 shadow-lg shadow-violet-500/40 hover:shadow-violet-500/60 hover:-translate-y-0.5"
         }`}
       >
         {loading ? "Sending..." : "Send Message"}
+        {!loading && (
+          <IconSend className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-0.5" />
+        )}
       </button>
     </form>
   );

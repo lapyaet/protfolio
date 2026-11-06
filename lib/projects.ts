@@ -1,0 +1,61 @@
+import type { Project } from "@/component/card/ProjectCard";
+
+export const ProjectList: Project[] = [
+  {
+    name: "CGC-Learn",
+    category: "Learning Platform",
+    src: "/cgc.png",
+    dec: "A mobile-first platform that helps young people build mental resilience, employability and lifelong learning skills. It brings wellbeing practices, interactive career guidance and professional skill-building into one accessible app for students, job seekers and career changers.",
+    link: "https://cgc-learn.com",
+    use: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "TypeScript",
+      "React Native",
+      "Next Auth",
+      "Framer Motion",
+      "Vercel",
+      "GraphQL",
+    ],
+  },
+  {
+    name: "MM-Fonts",
+    category: "Marketplace",
+    src: "/mmFont.png",
+    dec: "An online marketplace for Myanmar fonts. Users can preview and test fonts, then download free ones or buy premium ones, while designers can upload, sell and gain exposure for their work.",
+    link: "https://mmfont.vercel.app/en/",
+    use: ["SolidJS", "Tailwind CSS", "TypeScript", "Framer Motion", "Vercel"],
+  },
+  {
+    name: "Epic Uni",
+    category: "Test Preparation",
+    src: "/epicUni.png",
+    dec: "A practice platform for PTE test preparation, with targeted exercises that help learners improve their skills session by session.",
+    link: "https://epicuni.net/",
+    use: [
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "TypeScript",
+      "Socket.io",
+      "GraphQL",
+    ],
+  },
+  {
+    name: "DigitHouse",
+    category: "Company Website",
+    src: "/digitHouse.png",
+    dec: "The company website for Digit House, a studio offering digital products and services including e-commerce, digital marketing and content creation.",
+    link: "https://digithouse.co",
+    use: ["SolidJS", "Tailwind CSS", "TypeScript", "GSAP", "Vercel"],
+  },
+  {
+    name: "DH Ticket",
+    category: "Ticketing Platform",
+    src: "/dhTicket.png",
+    dec: "A ticketing platform where users can browse, purchase and manage their travel tickets in one simple interface.",
+    link: "https://digithouse.co",
+    use: ["SolidJS", "Tailwind CSS", "TypeScript", "GSAP", "Vercel"],
+  },
+];
